@@ -4,6 +4,7 @@ import Login from "./pages/Login.tsx";
 import Register from "./pages/Register.tsx";
 import { createBrowserRouter } from "react-router";
 import Layout from "./outlet/Layout.tsx";
+import PublicRoute from "./components/PublicRoute.tsx";
 
 export const router = createBrowserRouter([
   {
@@ -21,10 +22,18 @@ export const router = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <Login />,
+    element: (
+      <PublicRoute>
+        <Login />
+      </PublicRoute>
+    ),
   },
   {
     path: "/register",
-    element: <Register />,
+    element: (
+      <PublicRoute>
+        <Register />
+      </PublicRoute>
+    ),
   },
 ]);

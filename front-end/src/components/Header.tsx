@@ -59,21 +59,23 @@ const Header = () => {
         <div>
           {user ? (
             <div className="flex items-center gap-8 text-white">
-              <div className="flex gap-1 text-[#F2DAAC]">
-                <Link to={"/"}>
-                  <div className={getNavItemClass("/")}>
-                    <Box size={20} />
+              {user.admin && (
+                <div className="flex gap-1 text-[#F2DAAC]">
+                  <Link to={"/"}>
+                    <div className={getNavItemClass("/")}>
+                      <Box size={20} />
+                    </div>
+                  </Link>
+                  <Link to={"/Pedidos"}>
+                    <div className={getNavItemClass("/Pedidos")}>
+                      <LayoutDashboard size={20} />
+                    </div>
+                  </Link>
+                  <div className="flex h-[35px] w-[35px] cursor-pointer items-center justify-center rounded border">
+                    <Plus size={20} />
                   </div>
-                </Link>
-                <Link to={"/Pedidos"}>
-                  <div className={getNavItemClass("/Pedidos")}>
-                    <LayoutDashboard size={20} />
-                  </div>
-                </Link>
-                <div className="flex h-[35px] w-[35px] cursor-pointer items-center justify-center rounded border">
-                  <Plus size={20} />
                 </div>
-              </div>
+              )}
               <div className="relative cursor-pointer">
                 <ShoppingCart size={18} />
                 <p className="absolute -top-4 left-2 flex h-5 w-5 items-center justify-center rounded-full bg-[#F2DAAC] p-1 text-sm text-[#161410]">
