@@ -1,5 +1,5 @@
 const Pedidos = () => {
-  return <div>Pedidos</div>;
+  return <div className="text-white">Pedidos</div>;
 };
 
 export default Pedidos;
