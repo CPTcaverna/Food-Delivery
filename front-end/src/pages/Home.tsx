@@ -65,9 +65,9 @@ const Home = () => {
         </div>
       </div>
       <p className="mb-2 font-bold text-[#F2DAAC] uppercase">{category}</p>
-      <div className="flex flex-col md:gap-3">
+      <div className="flex flex-col gap-3">
         {filteredProduct.map((product) => (
-          <Product {...product} key={product.id} />
+          <Product {...product} key={product.id} setProducts={setProducts} />
         ))}
         {filteredProduct.length === 0 && (
           <p>Não ha produtos dessa categoria </p>

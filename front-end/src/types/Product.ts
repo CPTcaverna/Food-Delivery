@@ -5,4 +5,5 @@ export type ProcutType = {
   price: number;
   img: string;
   category: string;
+  setProducts: React.Dispatch<React.SetStateAction<ProcutType[]>>;
 };

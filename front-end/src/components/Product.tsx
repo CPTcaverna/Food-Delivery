@@ -1,8 +1,53 @@
 import { ShoppingBag } from "lucide-react";
 import type { ProcutType } from "../types/Product";
 import { formatterPrice } from "../utils/formatter";
+import { UserContext } from "../context/UserContext";
+import { useContext } from "react";
 
-const Product = ({ name, description, img, price }: ProcutType) => {
+const Product = ({
+  id,
+  name,
+  description,
+  img,
+  price,
+  setProducts,
+}: ProcutType) => {
+  const { user } = useContext(UserContext);
+
+  const hendleDeleteProduct = async (id: string) => {
+    try {
+      if (!id) {
+        console.log("id n enviado");
+      }
+      const response = await fetch(
+        import.meta.env.VITE_URL_BACK + `/products/${id}`,
+        {
+          method: "DELETE",
+          credentials: "include",
+        },
+      );
+
+      if (!response.ok) {
+        console.log("Erro ao realizar a requisicão");
+        return;
+      }
+
+      getProducts();
+    } catch (error) {
+      console.log(error);
+      return;
+    }
+  };
+  const getProducts = async () => {
+    try {
+      const response = await fetch(import.meta.env.VITE_URL_BACK + "/products");
+      const data = await response.json();
+      setProducts(data);
+    } catch (error) {
+      console.log(error);
+      return;
+    }
+  };
   return (
     <div>
       <div className="flex gap-2">
@@ -13,9 +58,19 @@ const Product = ({ name, description, img, price }: ProcutType) => {
         />
 
         <div className="flex w-full flex-col">
-          <p className="text-sm font-bold text-white uppercase md:text-lg">
-            {name}
-          </p>
+          <div className="flex justify-between">
+            <p className="text-sm font-bold text-white uppercase md:text-lg">
+              {name}
+            </p>
+            {user?.admin && (
+              <div
+                className="flex cursor-pointer items-center rounded-md border p-0.5 text-sm text-red-500 uppercase"
+                onClick={() => hendleDeleteProduct(id)}
+              >
+                Deletar
+              </div>
+            )}
+          </div>
           <p className="text-sx flex-1 text-[#848484] md:text-lg">
             {description}
           </p>
