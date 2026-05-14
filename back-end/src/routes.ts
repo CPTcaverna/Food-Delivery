@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { getUsers, login, register, auth, logout } from "./controller/user-controller.js";
 import { authMiddleware } from "./middlewares/auth-middleware.js";
-import { getProducts } from "./controller/product-controller.js";
+import { getProducts, deleteProduct } from "./controller/product-controller.js";
 
 export const router = Router();
 
@@ -17,3 +17,4 @@ router.get("/users", getUsers);
 
 //rotas de produto
 router.get("/products", getProducts);
+router.delete("/products/:id", authMiddleware, deleteProduct)
