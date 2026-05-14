@@ -60,7 +60,7 @@ const Header = () => {
           {user ? (
             <div className="flex items-center gap-8 text-white">
               {user.admin && (
-                <div className="flex gap-1 text-[#F2DAAC]">
+                <div className="hidden gap-1 text-[#F2DAAC] md:flex">
                   <Link to={"/"}>
                     <div className={getNavItemClass("/")}>
                       <Box size={20} />

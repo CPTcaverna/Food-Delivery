@@ -1,19 +1,21 @@
-import { useEffect, type ReactNode } from "react";
-import { useNavigate } from "react-router";
+import { type ReactNode } from "react";
+import { Navigate } from "react-router";
 
-const PublicRoute = ({ children }: { children: ReactNode }) => {
-  const navigate = useNavigate();
-  useEffect(() => {
-    const coockie = document.cookie;
-    if (coockie) {
-      const coockies = coockie.split("; ");
-      const userCookie = coockies.find((cookie) => cookie.startsWith("user="));
-      if (userCookie) {
-        navigate("/", { replace: true });
-      }
-    }
-  }, [navigate]);
-  return <div>{children}</div>;
+interface PublicRouteProps {
+  children: ReactNode;
+}
+
+const PublicRoute = ({ children }: PublicRouteProps) => {
+  const isAuthenticated = (): boolean => {
+    const cookies = document.cookie.split("; ");
+    return cookies.some((cookie) => cookie.startsWith("user="));
+  };
+
+  if (isAuthenticated()) {
+    return <Navigate to="/" replace />;
+  }
+
+  return <>{children}</>;
 };
 
 export default PublicRoute;
